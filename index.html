@@ -1,0 +1,393 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080b18"><title>数学挑战 · Math Rush</title><style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;color:#f8fafc;font-family:system-ui,-apple-system,"Microsoft YaHei",sans-serif;background:radial-gradient(circle at 12% 8%,#694cff2b,transparent 30%),radial-gradient(circle at 90% 18%,#21d4c52b,transparent 28%),linear-gradient(145deg,#060914,#0b1020 55%,#11162a);display:grid;place-items:center;padding:18px}.app{width:min(760px,100%)}.shell{background:#0e1628ee;border:1px solid #ffffff16;border-radius:30px;box-shadow:0 30px 90px #0009;overflow:hidden;backdrop-filter:blur(18px)}.line{height:4px;background:linear-gradient(90deg,#7c5cff,#5ee7df)}.view{padding:32px}.hidden{display:none!important}.logo{display:flex;align-items:center;gap:12px;margin-bottom:30px}.mark{width:50px;height:50px;border-radius:16px;display:grid;place-items:center;font-size:26px;background:linear-gradient(135deg,#7c5cff,#a18aff);box-shadow:0 10px 35px #7c5cff55}.eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:11px;color:#94a3b8;font-weight:850}.heroTitle{font-size:clamp(38px,8vw,62px);line-height:.98;margin:0 0 16px;letter-spacing:-.055em}.heroText{font-size:17px;color:#94a3b8;line-height:1.75}.purple{color:#8f78ff}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:28px 0}.stat{padding:17px;border-radius:18px;background:#ffffff08;border:1px solid #ffffff13}.stat b{display:block;font-size:21px;margin-bottom:4px}.stat span{font-size:12px;color:#94a3b8}.btn{border:0;border-radius:16px;min-height:54px;padding:15px 20px;color:#fff;font-size:16px;font-weight:850;cursor:pointer;transition:.18s transform,.18s filter}.btn:hover{transform:translateY(-2px);filter:brightness(1.1)}.primary{background:linear-gradient(135deg,#7355ff,#9c83ff);box-shadow:0 13px 30px #7355ff3d}.ghost{background:#ffffff08;border:1px solid #ffffff14}.play{width:100%;font-size:18px}.note{text-align:center;color:#64748b;font-size:12px;margin-top:16px}.top{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:end;margin-bottom:20px}.counter{font-size:13px;color:#94a3b8;margin-bottom:8px}.counter strong{color:#fff}.progress{height:9px;background:#ffffff0c;border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#7355ff,#5ee7df);border-radius:inherit;transition:width .35s}.timer{min-width:92px;text-align:center;padding:11px 14px;border:1px solid #ffffff15;background:#ffffff08;border-radius:16px;font-weight:900}.timer b{font-size:22px}.metrics{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:17px}.pill{padding:8px 11px;border-radius:999px;background:#ffffff08;border:1px solid #ffffff13;color:#94a3b8;font-size:13px}.pill strong{color:#fff}.questionCard{position:relative;overflow:hidden;min-height:180px;display:flex;align-items:center;padding:28px 25px;margin-bottom:14px;border-radius:25px;border:1px solid #ffffff13;background:linear-gradient(145deg,#18233d,#10182a)}.questionCard:after{content:"?";position:absolute;right:14px;bottom:-35px;font-size:150px;font-weight:950;color:#fff4}.question{position:relative;z-index:1;font-size:clamp(29px,6vw,44px);font-weight:950;letter-spacing:-.04em;line-height:1.3}.choices{display:grid;grid-template-columns:1fr 1fr;gap:12px}.choice{min-height:64px;border:1px solid #ffffff15;border-radius:17px;background:#ffffff08;color:#fff;text-align:left;padding:14px 17px;font-size:18px;font-weight:750;cursor:pointer;transition:.18s}.choice:hover{border-color:#8f78ff88;background:#7355ff14;transform:translateY(-2px)}.choice.correct{border-color:#34d39999;background:#34d39918}.choice.wrong{border-color:#fb718599;background:#fb718514}.feedback{height:34px;text-align:center;padding-top:11px;font-weight:850}.good{color:#34d399}.bad{color:#fb7185}.result{text-align:center}.trophy{font-size:60px;margin-bottom:4px}.score{font-size:76px;font-weight:950;letter-spacing:-.07em;background:linear-gradient(90deg,#fff,#5ee7df);-webkit-background-clip:text;color:transparent}.resultGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0}.box{padding:17px;background:#ffffff08;border:1px solid #ffffff13;border-radius:18px}.box b{display:block;font-size:22px}.box span{font-size:12px;color:#94a3b8}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:560px){body{padding:10px}.view{padding:22px}.stats{grid-template-columns:1fr 1fr}.stats .stat:last-child{grid-column:1/-1}.choices{grid-template-columns:1fr}.resultGrid{grid-template-columns:1fr 1fr}.resultGrid .box:last-child{grid-column:1/-1}.actions{grid-template-columns:1fr}}
+</style>
+<style>
+.upgrade{margin-top:14px;padding:16px;border:1px solid rgba(255,255,255,.1);border-radius:18px;background:rgba(255,255,255,.04)}
+.upgrade-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.u-stat{padding:11px;border-radius:13px;background:rgba(255,255,255,.045);text-align:center}.u-stat b{display:block;font-size:20px}.u-stat small{color:#9ca7c5}
+.powerups{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:12px}.power{border:1px solid rgba(255,255,255,.12);background:#151d32;color:#fff;border-radius:12px;padding:9px 12px;cursor:pointer}.power:disabled{opacity:.4}
+#upgradeBoard{display:none}.share-btn{margin-top:10px}
+@media(max-width:600px){.upgrade-grid{grid-template-columns:1fr 1fr}}
+</style>
+
+<style id="cup-match-style">
+.cup-panel{margin-top:14px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cup-card{padding:15px;border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.025));border:1px solid rgba(255,255,255,.1)}
+.cup-card .big{font-size:25px;font-weight:950}.cup-card small{color:#9ca7c5}
+.match-panel{margin-top:14px;padding:18px;border-radius:20px;background:linear-gradient(145deg,rgba(110,231,255,.08),rgba(155,140,255,.06));border:1px solid rgba(255,255,255,.1)}
+.match-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.match-vs{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin:15px 0}.fighter{text-align:center;padding:13px;border-radius:15px;background:rgba(0,0,0,.18)}.fighter b{display:block;font-size:22px}.vs{font-weight:950;color:#ffd166}.match-bar{height:10px;background:#202840;border-radius:99px;overflow:hidden}.match-bar i{display:block;height:100%;width:50%;background:linear-gradient(90deg,#6ee7ff,#9b8cff);transition:width .3s}.cup-delta{font-size:18px;font-weight:900;color:#ffd166}
+.record-glow{outline:2px solid #ffd166;box-shadow:0 0 24px rgba(255,209,102,.18)}
+@media(max-width:600px){.cup-panel{grid-template-columns:1fr 1fr}.match-vs{grid-template-columns:1fr}.vs{order:2}}
+</style>
+
+<script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+<style>
+.onlineBtn{margin-top:10px;width:100%;background:linear-gradient(135deg,#14b8a6,#0ea5e9)}
+.online-screen{display:none}.online-screen.active{display:block}
+.online-card{padding:24px;border-radius:22px;background:linear-gradient(145deg,#12243a,#101827);border:1px solid #ffffff15}
+.online-title{font-size:30px;font-weight:950;margin:0 0 8px}.online-muted{color:#94a3b8;font-size:13px;line-height:1.6}
+.name-row{display:flex;gap:9px;margin:18px 0}.name-input{flex:1;min-width:0;border:1px solid #ffffff18;background:#ffffff08;color:#fff;border-radius:14px;padding:13px 14px;font-size:16px;outline:none}
+.online-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.online-stat{padding:14px;border-radius:16px;background:#ffffff08;border:1px solid #ffffff12}.online-stat b{display:block;font-size:22px}.online-stat span{color:#94a3b8;font-size:12px}
+.online-question{font-size:34px;font-weight:950;padding:26px 10px;text-align:center;line-height:1.35}.online-choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}.online-choice{min-height:60px;border:1px solid #ffffff15;border-radius:16px;background:#ffffff08;color:#fff;font-size:18px;font-weight:800;cursor:pointer}.online-choice:disabled{opacity:.65}.online-top{display:flex;justify-content:space-between;gap:10px;align-items:center}.online-timer{font-size:24px;font-weight:950}.online-progress{height:8px;background:#ffffff0c;border-radius:99px;margin:14px 0;overflow:hidden}.online-progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,#14b8a6,#38bdf8);transition:.25s}
+.leader-list{margin-top:14px}.leader-row{display:grid;grid-template-columns:40px 1fr auto;gap:10px;align-items:center;padding:12px;border-bottom:1px solid #ffffff0c}.leader-row:last-child{border-bottom:0}.leader-rank{font-weight:900;color:#fbbf24}.leader-name{font-weight:800}.leader-cups{font-weight:950}.online-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
+@media(max-width:560px){.online-choices{grid-template-columns:1fr}.online-actions{grid-template-columns:1fr}.name-row{flex-direction:column}}
+</style>
+</head><body><main class="app"><div class="shell"><div class="line"></div>
+<section id="home" class="view"><div class="logo"><div class="mark">∑</div><div><div class="eyebrow">MATH RUSH</div><strong>数学挑战</strong></div></div><h1 class="heroTitle">动脑，<span class="purple">冲分</span>，<br>破纪录。</h1><p class="heroText">10 道随机计算与推理题。答得越快，基础分越高；连续答对还能触发连击奖励。</p><div class="stats"><div class="stat"><b>10</b><span>挑战题数</span></div><div class="stat"><b>20s</b><span>每题限时</span></div><div class="stat"><b>🔥 连击</b><span>连续答对加分</span></div></div><button id="start" class="btn primary play">开始挑战　→</button>
+<button id="onlineBtn" class="btn onlineBtn play" type="button">🌐 真人在线匹配</button>
+<div class="note">无需注册 · 单文件 · 手机电脑均可运行</div></section>
+
+<div class="cup-panel" id="cupPanel">
+  <div class="cup-card"><small>🏆 最高纪录</small><div class="big" id="recordScore">0</div></div>
+  <div class="cup-card"><small>🏆 当前杯数</small><div class="big" id="cupCount">0</div></div>
+  <div class="cup-card"><small>🔥 最佳连胜</small><div class="big" id="winStreak">0</div></div>
+</div>
+<div class="match-panel">
+  <div class="match-head"><b>⚔️ 匹配对手</b><span class="mini">杯数越高，对手越强</span></div>
+  <p class="note">完成一局后根据表现获得或失去杯数。单文件版使用 AI 对手模拟匹配；上线联网版后可替换成真实玩家匹配。</p>
+  <button class="btn primary" id="matchBtn" type="button">开始匹配</button>
+</div>
+<section id="game" class="view hidden"><div class="top"><div><div class="counter">挑战进度　<strong id="progress">01 / 10</strong></div><div class="progress"><i id="fill"></i></div></div><div class="timer">⏱ <b id="time">20</b></div></div><div class="metrics"><span class="pill">⭐ 得分 <strong id="score">0</strong></span><span class="pill">🔥 连击 <strong id="streak">0</strong></span><span class="pill">✓ 正确 <strong id="correct">0</strong></span></div><div class="questionCard"><div id="question" class="question"></div></div><div id="choices" class="choices"></div><div id="feedback" class="feedback"></div></section>
+
+<section id="matchScreen" class="screen">
+  <div class="card">
+    <div class="match-head"><div><div class="mini">MATCHMAKING</div><h2 style="margin:5px 0">正在寻找对手…</h2></div><div class="cup-delta" id="matchCupPreview">🏆 0</div></div>
+    <div class="match-vs">
+      <div class="fighter"><small>你</small><b id="matchYou">Lv.1</b><span class="muted" id="matchYouCups">0杯</span></div>
+      <div class="vs">VS</div>
+      <div class="fighter"><small>AI 对手</small><b id="matchOpp">Math Bot</b><span class="muted" id="matchOppCups">0杯</span></div>
+    </div>
+    <div class="match-bar"><i id="matchBar"></i></div>
+    <p class="note" id="matchStatus">正在匹配相近杯数的对手…</p>
+  </div>
+</section>
+<section id="result" class="view result hidden"><div class="trophy">🏆</div><div class="eyebrow">CHALLENGE COMPLETE</div><h1 style="margin-top:10px">本局成绩</h1><div id="finalScore" class="score">0</div><div class="resultGrid"><div class="box"><b id="fc">0/10</b><span>答对题数</span></div><div class="box"><b id="fa">0%</b><span>正确率</span></div><div class="box"><b id="fb">0</b><span>最高连击</span></div></div><div class="actions"><button id="restart" class="btn primary">再来一局</button><button id="homeBtn" class="btn ghost">返回首页</button></div></section>
+
+<section id="onlineLobby" class="view online-screen">
+  <div class="online-card">
+    <div class="eyebrow">ONLINE ARENA</div>
+    <h2 class="online-title">🌐 真人在线匹配</h2>
+    <p class="online-muted">服务器会按奖杯数寻找另一位在线玩家。比赛由服务器计分，答题结果会同步到双方。</p>
+    <div class="name-row">
+      <input id="onlineName" class="name-input" maxlength="18" placeholder="输入你的昵称">
+      <button id="queueBtn" class="btn primary" type="button">开始匹配</button>
+    </div>
+    <div class="online-grid">
+      <div class="online-stat"><span>我的奖杯</span><b id="onlineCups">0 🏆</b></div>
+      <div class="online-stat"><span>全球排名</span><b id="onlineRank">—</b></div>
+    </div>
+    <div class="online-actions">
+      <button id="refreshBoard" class="btn ghost" type="button">刷新排行榜</button>
+      <button id="onlineBack" class="btn ghost" type="button">返回首页</button>
+    </div>
+    <div id="queueStatus" class="note">准备就绪</div>
+    <div id="leaderboard" class="leader-list"></div>
+  </div>
+</section>
+
+<section id="onlineGame" class="view online-screen">
+  <div class="online-card">
+    <div class="online-top">
+      <div><div class="eyebrow">LIVE MATCH</div><strong id="onlineMatchTitle">等待对手…</strong></div>
+      <div class="online-timer">⏱ <span id="onlineTime">15</span></div>
+    </div>
+    <div class="online-progress"><i id="onlineFill"></i></div>
+    <div class="online-top">
+      <span class="pill">你 <strong id="onlineMyScore">0</strong></span>
+      <span class="pill">对手 <strong id="onlineOppScore">0</strong></span>
+    </div>
+    <div class="online-question" id="onlineQuestion">准备中…</div>
+    <div class="online-choices" id="onlineChoices"></div>
+    <div id="onlineFeedback" class="feedback"></div>
+  </div>
+</section>
+
+<section id="onlineResult" class="view online-screen">
+  <div class="online-card result">
+    <div class="trophy" id="onlineResultEmoji">🏆</div>
+    <div class="eyebrow">ONLINE RESULT</div>
+    <h2 id="onlineResultTitle">比赛结束</h2>
+    <div class="resultGrid">
+      <div class="box"><b id="onlineFinalMy">0</b><span>本局得分</span></div>
+      <div class="box"><b id="onlineFinalOpp">0</b><span>对手得分</span></div>
+      <div class="box"><b id="onlineCupDelta">+0</b><span>奖杯变化</span></div>
+      <div class="box"><b id="onlineBestScore">0</b><span>最高纪录</span></div>
+    </div>
+    <div class="online-actions">
+      <button id="onlineAgain" class="btn primary" type="button">再战一局</button>
+      <button id="onlineResultHome" class="btn ghost" type="button">返回</button>
+    </div>
+  </div>
+</section>
+</div></main>
+<script>
+const $=id=>document.getElementById(id);let qs=[],idx=0,score=0,correct=0,streak=0,best=0,time=20,timer=null,locked=false;
+const rand=(a,b)=>Math.floor(Math.random()*(b-a+1))+a,shuffle=a=>a.sort(()=>Math.random()-.5);
+function make(){let t=rand(1,7),a=rand(3,15),b=rand(2,12);if(t===1)return {q:`${a} × ${b} = ?`,ans:a*b,o:[a*b,a*b+rand(2,9),a*b-rand(1,8),a+b]};if(t===2)return {q:`${a+b} − ${a} = ?`,ans:b,o:[b,b+2,b-2,a]};if(t===3){let x=rand(2,12),k=rand(3,9);return {q:`若 ${k}x = ${k*x}，那么 x = ?`,ans:x,o:[x,x+1,x-1,k]}}if(t===4){let n=rand(20,100),p=rand(1,4)*10,x=n*p/100;return {q:`${n} 的 ${p}% 是多少？`,ans:x,o:[x,x+5,x-5,n/2]}}if(t===5){let n=rand(4,16);return {q:`正方形边长 ${n} cm，面积是多少？`,ans:n*n,o:[n*n,n*4,n*2,n*n+n]}}if(t===6){let n=rand(10,30);return {q:`一个数加 8 等于 ${n}，这个数是多少？`,ans:n-8,o:[n-8,n-6,n-10,n+8]}}let n=rand(2,8);return {q:`找规律：${n}，${n+3}，${n+6}，${n+9}，下一个数？`,ans:n+12,o:[n+12,n+11,n+13,n+15]}}
+function start(){qs=Array.from({length:10},make);idx=score=correct=streak=best=0;$("home").classList.add("hidden");$("result").classList.add("hidden");$("game").classList.remove("hidden");show()}
+function show(){locked=false;time=20;$("time").textContent=time;$("progress").textContent=`${String(idx+1).padStart(2,"0")} / 10`;$("fill").style.width=idx/10*100+"%";$("score").textContent=score;$("streak").textContent=streak;$("correct").textContent=correct;$("question").textContent=qs[idx].q;$("feedback").textContent="";$("feedback").className="feedback";let box=$("choices");box.innerHTML="";shuffle(qs[idx].o).forEach(v=>{let b=document.createElement("button");b.className="choice";b.textContent=v;b.onclick=()=>answer(v,b);box.appendChild(b)});clearInterval(timer);timer=setInterval(()=>{time--;$("time").textContent=time;if(time<=0)answer(null)},1000)}
+function answer(v,btn){if(locked)return;locked=true;clearInterval(timer);let z=qs[idx],ok=v===z.ans;if(ok){correct++;streak++;best=Math.max(best,streak);let gain=100+streak*20+time*3;score+=gain;if(btn)btn.classList.add("correct");$("feedback").textContent=`✓ 正确！ +${gain} 分`;$("feedback").className="feedback good"}else{streak=0;if(btn)btn.classList.add("wrong");$("feedback").textContent=`✕ 正确答案：${z.ans}`;$("feedback").className="feedback bad";document.querySelectorAll(".choice").forEach(x=>{if(Number(x.textContent)===z.ans)x.classList.add("correct")})}$("score").textContent=score;$("streak").textContent=streak;$("correct").textContent=correct;setTimeout(()=>{idx++;idx<10?show():finish()},700)}
+function finish(){clearInterval(timer);$("game").classList.add("hidden");$("result").classList.remove("hidden");$("finalScore").textContent=score;$("fc").textContent=`${correct}/10`;$("fa").textContent=correct*10+"%";$("fb").textContent=best}
+$("start").onclick=start;$("restart").onclick=start;$("homeBtn").onclick=()=>{$("result").classList.add("hidden");$("home").classList.remove("hidden")};
+</script>
+<script>
+(()=> {
+const K="mathRush25Addon", S=JSON.parse(localStorage.getItem(K)||'{"coins":20,"xp":0,"level":1,"best":0,"games":0,"streak":0}');
+const save=()=>localStorage.setItem(K,JSON.stringify(S));
+const q=s=>document.querySelector(s);
+const sync=()=>{if(q("#rushCoins"))q("#rushCoins").textContent=S.coins;if(q("#rushLevel"))q("#rushLevel").textContent="Lv."+S.level;if(q("#rushStreak"))q("#rushStreak").textContent=S.streak};
+sync();
+let freeze=false,double=false;
+q("#rushFreeze")?.addEventListener("click",()=>{if(S.coins<5)return;S.coins-=5;freeze=true;sync();setTimeout(()=>freeze=false,5000)});
+q("#rushDouble")?.addEventListener("click",()=>{if(S.coins<10)return;S.coins-=10;double=true;sync()});
+q("#rushHint")?.addEventListener("click",()=>{if(S.coins<8)return;S.coins-=8;sync();const bs=[...document.querySelectorAll(".answer")];if(bs.length>2){const enabled=bs.filter(x=>!x.disabled);enabled.slice(0,Math.max(1,enabled.length-2)).forEach(x=>x.disabled=true)}});
+const observer=new MutationObserver(()=>{
+ const scoreEl=q("#score"), result=q("#result");
+ if(scoreEl&&result&&getComputedStyle(result).display!=="none"){
+   const score=parseInt(scoreEl.textContent)||0;
+   S.games++; S.best=Math.max(S.best,score);
+   const gain=Math.max(10,Math.floor(score/10)); S.xp+=gain; S.coins+=Math.max(2,Math.floor(score/150));
+   S.level=Math.floor(S.xp/500)+1; S.streak=0; save(); sync();
+   let old=q("#rushResultNote"); if(!old){old=document.createElement("div");old.id="rushResultNote";old.className="upgrade";result.appendChild(old)}
+   old.innerHTML="<b>🎁 奖励</b><div class='muted'>本局获得 +"+gain+" XP · 金币已自动加入账户。<br>继续挑战可解锁更高等级和更多玩法。</div><button class='power share-btn' id='rushShare'>📤 分享我的成绩</button>";
+   q("#rushShare")?.addEventListener("click",()=>{const text="我刚在 Math Rush 数学挑战中拿到 "+score+" 分！🔥 你能超过我吗？"; if(navigator.share) navigator.share({title:"Math Rush",text}).catch(()=>{}); else prompt("复制成绩：",text)});
+ }
+});
+observer.observe(document.body,{subtree:true,attributes:true,attributeFilter:["style","class"]});
+})();
+</script>
+
+<section id="matchResult" class="screen">
+  <div class="card result">
+    <div class="trophy" id="matchEmoji">🏆</div>
+    <div class="mini">对战结果</div>
+    <h2 id="matchResultTitle">比赛结束</h2>
+    <div class="match-vs">
+      <div class="fighter"><small>你的分数</small><b id="matchFinalYou">0</b></div>
+      <div class="vs">VS</div>
+      <div class="fighter"><small>对手分数</small><b id="matchFinalOpp">0</b></div>
+    </div>
+    <div class="cup-delta" id="matchCupDelta">🏆 +0 杯</div>
+    <p class="note" id="matchResultNote"></p>
+    <div class="actions" style="justify-content:center">
+      <button class="btn primary" id="matchAgain" type="button">再战一局</button>
+      <button class="btn dark" id="matchHome" type="button">返回首页</button>
+    </div>
+  </div>
+</section>
+
+<script id="cup-match-js">
+(()=> {
+  const KEY="mathRushCompetitive";
+  let st=JSON.parse(localStorage.getItem(KEY)||'{"cups":0,"record":0,"bestWinStreak":0,"matchWins":0,"matchGames":0}');
+  const $=s=>document.querySelector(s);
+  const save=()=>localStorage.setItem(KEY,JSON.stringify(st));
+  const sync=()=>{
+    if($("#recordScore"))$("#recordScore").textContent=st.record;
+    if($("#cupCount"))$("#cupCount").textContent=st.cups;
+    if($("#winStreak"))$("#winStreak").textContent=st.bestWinStreak;
+    const c=$("#rushCoins"); if(c){ /* existing addon owns coins */ }
+  };
+  sync();
+
+  let opponent={name:"Math Bot",cups:0,score:0}, matchActive=false, matchTimer=null, matchYouScore=0;
+
+  function show(id){document.querySelectorAll(".screen").forEach(x=>x.classList.remove("active")); const el=$("#"+id); if(el)el.classList.add("active");}
+  function opponentFor(cups){
+    const names=["Number Ninja","Calc Master","Algebra Fox","Quick Mind","Sigma Bot","Prime Player"];
+    return {name:names[Math.floor(Math.random()*names.length)],cups:Math.max(0,cups+Math.floor(Math.random()*101)-50),score:0};
+  }
+  function startMatch(){
+    opponent=opponentFor(st.cups); matchActive=true;
+    $("#matchYou").textContent="Lv."+Math.floor(st.cups/100+1);
+    $("#matchYouCups").textContent=st.cups+"杯";
+    $("#matchOpp").textContent=opponent.name;
+    $("#matchOppCups").textContent=opponent.cups+"杯";
+    $("#matchCupPreview").textContent="🏆 "+st.cups;
+    $("#matchBar").style.width="5%"; $("#matchStatus").textContent="正在寻找相近杯数的对手…";
+    show("matchScreen");
+    let p=5; clearInterval(matchTimer);
+    matchTimer=setInterval(()=>{
+      p+=Math.floor(Math.random()*16)+8; $("#matchBar").style.width=Math.min(100,p)+"%";
+      if(p>=100){clearInterval(matchTimer);$("#matchStatus").textContent="匹配成功！进入竞技挑战。";setTimeout(()=>startCompetitiveGame(),500);}
+    },180);
+  }
+
+  function startCompetitiveGame(){
+    // Use the existing game engine if present, but mark this as competitive.
+    window.__mathRushCompetitive=true;
+    if(typeof window.startGame==="function"){window.startGame();}
+    else{
+      show("game");
+      const start=$("#start"); if(start)start.click();
+    }
+    // Generate a plausible AI performance; higher cups are slightly stronger.
+    const base=520 + opponent.cups*0.35;
+    opponent.score=Math.round(base + Math.random()*900);
+  }
+
+  function finishCompetitive(){
+    if(!matchActive)return;
+    matchActive=false;
+    // Read the current game's displayed score.
+    const scoreEl=$("#score");
+    matchYouScore=parseInt(scoreEl?.textContent||"0",10)||0;
+    st.matchGames++;
+    const win=matchYouScore>opponent.score;
+    const draw=matchYouScore===opponent.score;
+    let delta;
+    if(win) delta=22+Math.min(18,Math.floor(Math.abs(matchYouScore-opponent.score)/150));
+    else if(draw) delta=5;
+    else delta=-(10+Math.min(15,Math.floor(Math.abs(matchYouScore-opponent.score)/180)));
+    st.cups=Math.max(0,st.cups+delta);
+    if(win)st.matchWins++;
+    if(win)st.bestWinStreak++;
+    else st.bestWinStreak=0;
+    st.record=Math.max(st.record,matchYouScore);
+    save();sync();
+    $("#matchFinalYou").textContent=matchYouScore;
+    $("#matchFinalOpp").textContent=opponent.score;
+    $("#matchCupDelta").textContent="🏆 "+(delta>=0?"+":"")+delta+" 杯";
+    $("#matchEmoji").textContent=win?"🏆":draw?"🤝":"💪";
+    $("#matchResultTitle").textContent=win?"胜利！":draw?"平局":"惜败";
+    $("#matchResultNote").textContent=win
+      ? "你击败了 "+opponent.name+"，继续冲击更高杯数。"
+      : draw ? "势均力敌，再打一局看看。" : "别放弃，连胜和杯数都可以重新积累。";
+    show("matchResult");
+  }
+
+  // Hook buttons.
+  $("#matchBtn")?.addEventListener("click",startMatch);
+  $("#matchAgain")?.addEventListener("click",startMatch);
+  $("#matchHome")?.addEventListener("click",()=>{sync();show("home")});
+
+  // Observe the result screen of the normal engine. When a competitive game ends,
+  // divert to competitive result instead of changing the normal result flow.
+  const obs=new MutationObserver(()=>{
+    if(window.__mathRushCompetitive){
+      const result=$("#result");
+      if(result && result.classList.contains("active")){
+        window.__mathRushCompetitive=false;
+        // Give the normal engine a moment to finish its own XP/score bookkeeping.
+        setTimeout(finishCompetitive,60);
+      }
+    }
+  });
+  obs.observe(document.body,{subtree:true,attributes:true,attributeFilter:["class"]});
+})();
+</script>
+
+<script>
+(() => {
+  // After deploying the backend, replace this URL with your server URL.
+  const SERVER_URL = window.MATH_RUSH_SERVER || "https://YOUR-RENDER-SERVICE.onrender.com";
+  const $ = id => document.getElementById(id);
+  let socket = null, onlineRound = 0, onlineTimer = null, answered = false;
+
+  const views = ["home","game","result","matchScreen","matchResult","onlineLobby","onlineGame","onlineResult"];
+  function showOnline(id){
+    views.forEach(v => { const el=$(v); if(el){ el.classList.add("hidden"); el.classList.remove("active"); }});
+    const el=$(id); if(el){ el.classList.remove("hidden"); el.classList.add("active"); }
+  }
+  function name(){
+    const input=$("onlineName");
+    const n=(input.value||localStorage.getItem("mathRushName")||"玩家").trim().slice(0,18) || "玩家";
+    localStorage.setItem("mathRushName",n); input.value=n; return n;
+  }
+  async function board(){
+    try{
+      const r=await fetch(SERVER_URL.replace(/\/$/,"")+"/api/leaderboard");
+      const data=await r.json();
+      $("leaderboard").innerHTML = "<b>🏆 全球奖杯排行榜</b>" +
+        (data.players||[]).map((p,i)=>`<div class="leader-row"><span class="leader-rank">#${i+1}</span><span class="leader-name">${escapeHtml(p.name)}</span><span class="leader-cups">${p.cups} 🏆</span></div>`).join("") ||
+        "<div class='note'>暂无玩家数据</div>";
+    }catch(e){
+      $("leaderboard").innerHTML="<div class='note'>暂时无法连接服务器，请先部署在线服务器。</div>";
+    }
+  }
+  function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));}
+
+  async function enterLobby(){
+    const saved=localStorage.getItem("mathRushName")||"";
+    $("onlineName").value=saved;
+    showOnline("onlineLobby"); await board();
+    try{
+      const r=await fetch(SERVER_URL.replace(/\/$/,"")+"/api/player?name="+encodeURIComponent(saved||"玩家"));
+      if(r.ok){const d=await r.json(); $("onlineCups").textContent=(d.cups||0)+" 🏆"; $("onlineRank").textContent=d.rank?("#"+d.rank):"—";}
+    }catch(e){}
+  }
+
+  function connect(){
+    if(!SERVER_URL || SERVER_URL.includes("YOUR-RENDER-SERVICE")){
+      $("queueStatus").textContent="⚠️ 还没有填写在线服务器地址。先完成服务器部署后再匹配真人。";
+      return false;
+    }
+    if(!socket){
+      socket=io(SERVER_URL,{transports:["websocket","polling"]});
+      socket.on("connect",()=>{ $("queueStatus").textContent="服务器已连接，可以开始匹配。"; });
+      socket.on("connect_error",()=>{ $("queueStatus").textContent="❌ 无法连接服务器，请检查服务器是否已部署。"; });
+      socket.on("queue",d=>{showOnline("onlineLobby"); $("queueStatus").textContent=`正在寻找对手… 当前排队人数：${d.size}`;});
+      socket.on("matched",d=>{
+        showOnline("onlineGame");
+        $("onlineMatchTitle").textContent=`VS ${d.opponent.name}`;
+        $("onlineMyScore").textContent="0"; $("onlineOppScore").textContent="0";
+      });
+      socket.on("question",d=>{
+        onlineRound=d.round; answered=false;
+        $("onlineQuestion").textContent=d.q; $("onlineFill").style.width=((d.round-1)/10*100)+"%";
+        $("onlineFeedback").textContent="";
+        const box=$("onlineChoices"); box.innerHTML="";
+        d.options.forEach(v=>{
+          const b=document.createElement("button"); b.className="online-choice"; b.textContent=v;
+          b.onclick=()=>submit(v,b); box.appendChild(b);
+        });
+        let t=d.timeLimit||15; clearInterval(onlineTimer); $("onlineTime").textContent=t;
+        onlineTimer=setInterval(()=>{t--; $("onlineTime").textContent=t; if(t<=0){clearInterval(onlineTimer); if(!answered)submit(null,null);}},1000);
+      });
+      socket.on("score",d=>{$("onlineMyScore").textContent=d.you; $("onlineOppScore").textContent=d.opponent;});
+      socket.on("roundResult",d=>{ $("onlineFeedback").textContent=d.correct?"✓ 正确":"✕ "+(d.answer??"超时"); $("onlineFeedback").className="feedback "+(d.correct?"good":"bad");});
+      socket.on("finished",d=>{
+        clearInterval(onlineTimer); showOnline("onlineResult");
+        $("onlineResultEmoji").textContent=d.result==="win"?"🏆":d.result==="draw"?"🤝":"💪";
+        $("onlineResultTitle").textContent=d.result==="win"?"胜利！":d.result==="draw"?"平局":"惜败";
+        $("onlineFinalMy").textContent=d.youScore; $("onlineFinalOpp").textContent=d.opponentScore;
+        const bestKey="mathRushOnlineBestScore";
+        const oldBest=Number(localStorage.getItem(bestKey)||0);
+        const best=Math.max(oldBest,Number(d.youScore)||0);
+        localStorage.setItem(bestKey,String(best));
+        $("onlineBestScore").textContent=best;
+        $("onlineCupDelta").textContent=(d.cupDelta>=0?"+":"")+d.cupDelta;
+        $("onlineCups").textContent=d.cups+" 🏆";
+        board();
+      });
+    }
+    return true;
+  }
+
+  function submit(answer,btn){
+    if(answered || !socket) return;
+    answered=true; clearInterval(onlineTimer);
+    document.querySelectorAll(".online-choice").forEach(b=>b.disabled=true);
+    socket.emit("answer",{answer});
+    if(btn) btn.style.outline="2px solid rgba(94,231,223,.65)";
+  }
+
+  $("onlineBtn")?.addEventListener("click",enterLobby);
+  $("onlineBack")?.addEventListener("click",()=>showOnline("home"));
+  $("refreshBoard")?.addEventListener("click",board);
+  $("queueBtn")?.addEventListener("click",()=>{
+    if(connect()){ socket.emit("joinQueue",{name:name()}); $("queueStatus").textContent="正在匹配真人玩家…"; }
+  });
+  $("onlineAgain")?.addEventListener("click",()=>{
+    showOnline("onlineLobby");
+    board();
+    setTimeout(()=>{
+      if(connect()){
+        socket.emit("joinQueue",{name:name()});
+        $("queueStatus").textContent="正在寻找下一位真人对手…";
+      }
+    },120);
+  });
+  $("onlineResultHome")?.addEventListener("click",()=>showOnline("home"));
+})();
+</script>
+</body></html>
